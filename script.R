@@ -95,7 +95,7 @@ concelhos <- postos_gasoleo %>%
   left_join(media_concelho_gasolina) %>%
   left_join(media_concelho_gasoleo) %>%
   mutate(mean_gasolina = round(mean_gasolina, 3)) %>%
-  mutate(mean_gasoleo = round(mean_gasoleo, 3))
+  mutate(mean_gasoleo = round(mean_gasoleo, 3)) %>%
   select(-Municipio)
 
 
