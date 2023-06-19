@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up R ${{ matrix.r-version }}
-        uses: r-lib/actions/setup-R@v1
+        uses: r-lib/actions/setup-R@v2
         with:
           r-version: ${{ matrix.r-version }}
 
