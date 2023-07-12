@@ -102,6 +102,7 @@ concelhos <- postos_gasoleo %>%
 
 data <- list(
   date_update = date_long,
+  date_update_robot = format(Sys.time(), "%a %b %d %Y %X GMT"),
   date_today = date,
   date_2years = (date -years(2)) -1,
   gasoleo = gasoleo,
