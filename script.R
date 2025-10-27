@@ -4,8 +4,12 @@ library(lubridate)
 library(glue)
 library(stringr)
 
+
 date <- Sys.Date()
-date_long <- glue('{day(date)} de {month(date, label = T, abbr = F, locale = "pt_PT")} de {year(date)}')
+meses_pt <- c("janeiro", "fevereiro", "março", "abril", "maio", "junho",
+              "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+
+date_long <- glue("{day(date)} de {meses_pt[month(date)]} de {year(date)}")
 
 data_daily <- fromJSON(glue('https://precoscombustiveis.dgeg.gov.pt/api/PrecoComb/PMD?dataIni=2000-01-01&dataFim={date}'))
 
@@ -98,6 +102,22 @@ concelhos <- postos_gasoleo %>%
   mutate(mean_gasoleo = round(mean_gasoleo, 3)) %>%
   select(-Municipio)
 
+# Filter only Espinho data
+postos_gasolina <- postos_gasolina %>%
+  filter(Municipio == "Espinho")
+
+postos_gasoleo <- postos_gasoleo %>%
+  filter(Municipio == "Espinho")
+
+media_concelho_gasolina <- media_concelho_gasolina %>%
+  filter(Municipio == "Espinho")
+
+media_concelho_gasoleo <- media_concelho_gasoleo %>%
+  filter(Municipio == "Espinho")
+
+concelhos <- concelhos %>%
+  filter(value == "Espinho")
+
 
 
 data <- list(
@@ -116,4 +136,4 @@ data <- list(
 
 data <- data %>% toJSON(pretty = FALSE, auto_unbox = TRUE, na = "null")
 
-data %>% write('data.json')
+data %>% write('data-espinho.json')
